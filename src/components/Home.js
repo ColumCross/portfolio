@@ -3,6 +3,7 @@ import { projects } from './Projects';
 import profileSquare from '../assets/profile_square.jpg';
 import vrCropped from '../assets/vr_cropped.jpg';
 import resumePDF from '../assets/Colum Cross Resume.pdf';
+import resumedePDF from '../assets/CV_Colum_Cross.pdf';
 
 const Home = ({ language }) => {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -154,7 +155,7 @@ const Home = ({ language }) => {
         <h2 className="section-title">{language === 'english' ? 'Resume' : 'Lebenslauf'}</h2>
         <div className="resume-container">
           <iframe
-            src={resumePDF}
+            src={language === 'english' ? resumePDF : resumedePDF}
             title="Colum Cross Resume"
             className="resume-iframe"
             width="100%"
