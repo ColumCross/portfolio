@@ -33,6 +33,7 @@ const Navigation = ({ currentPage, setCurrentPage, language, onLanguageChange })
       </ul>
       
       <div className="language-buttons">
+        <a href='https://columcross.github.io/'><button className='btn btn-secondary'>Simple Site</button></a>
         <button 
           className={`btn ${language === 'english' ? '' : 'btn-secondary'}`}
           onClick={() => onLanguageChange('english')}
