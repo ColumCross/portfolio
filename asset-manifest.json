@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/portfolio/static/css/main.62365724.css",
+    "main.js": "/portfolio/static/js/main.da6abd77.js",
+    "static/js/453.a22a4657.chunk.js": "/portfolio/static/js/453.a22a4657.chunk.js",
+    "static/media/vr_cropped.jpg": "/portfolio/static/media/vr_cropped.5afeb3ba8301355b35a7.jpg",
+    "static/media/CV_Colum_Cross.pdf": "/portfolio/static/media/CV_Colum_Cross.1e2577c80a45adfa95a2.pdf",
+    "static/media/Colum Cross Resume.pdf": "/portfolio/static/media/Colum Cross Resume.04d86b7f530e74b47328.pdf",
+    "static/media/profile_square.jpg": "/portfolio/static/media/profile_square.c0c9526b8508ab11315f.jpg",
+    "static/media/mathbasednbacktesticon.png": "/portfolio/static/media/mathbasednbacktesticon.44548cf0752e7d575a02.png",
+    "static/media/tipcalculator_screenshot.PNG": "/portfolio/static/media/tipcalculator_screenshot.f6bc127d3ec72663747e.PNG",
+    "static/media/ic_launcher-playstore.png": "/portfolio/static/media/ic_launcher-playstore.24b652126ea1f4c37c85.png",
+    "index.html": "/portfolio/index.html",
+    "main.62365724.css.map": "/portfolio/static/css/main.62365724.css.map",
+    "main.da6abd77.js.map": "/portfolio/static/js/main.da6abd77.js.map",
+    "453.a22a4657.chunk.js.map": "/portfolio/static/js/453.a22a4657.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.62365724.css",
+    "static/js/main.da6abd77.js"
+  ]
+}
