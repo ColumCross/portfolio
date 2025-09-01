@@ -1,3 +1,5 @@
+// npm run deploy <= Command to push to prod
+
 import React, { useState, useEffect } from 'react';
 import { projects } from './Projects';
 import profileSquare from '../assets/profile_square.jpg';
@@ -66,6 +68,13 @@ const Home = ({ language }) => {
                 <br></br>
                 <p>{aboutContent.german.text2}</p>
               </div>
+            </div>
+            <div className="about-text">
+              <p>&nbsp;</p>
+              <h2>{language === 'english' ? 'Contact' : 'Kontakt'}</h2>
+              <p><a href="mailto:columcross@gmail.com">columcross@gmail.com</a></p>
+              <p><a href="https://linkedin.com/in/columcross" target="_blank">linkedin.com/in/columcross</a></p>
+              <p><a href="https://github.com/columcross" target="_blank">github.com/columcross</a></p>
             </div>
           </div>
         </div>
