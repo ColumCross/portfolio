@@ -3,6 +3,8 @@ import icLauncher from '../assets/ic_launcher-playstore.png';
 import tipCalculator from '../assets/tipcalculator_screenshot.PNG';
 import mathBasedNBack from '../assets/mathbasednbacktesticon.png';
 import permissionGranted from '../assets/permission_granted_icon.png';
+import mywakingview_icon from '../assets/mywakingview_icon.png';
+import pspromt_icon from '../assets/ps_prompt_icon.png';
 
 export const projects = [
   {
@@ -28,7 +30,7 @@ export const projects = [
     title: '#mywakingview',
     description: "When I was in England the first time I saw an art exhibit where a guy stamped and mailed a postcard with the time he woke up everyday. So, taking inspiration from that, and a couple of other things, for a full year I took a picture of what I saw out my window when I woke up, with the date, time, and location.",
     descde: "Als ich das erste Mal in England ein Kunstexponat sah, in dem ein Kerl jeden Tag eine Postkarte mit der Uhrzeit, an der er aufgewacht ist, frankierte und versandte. Daher habe ich durch Inspiration von diesem und ein paar anderen Dingen für ein Jahr täglich ein Foto von dem abgenommen, was ich an meinem Fenster sah, mit Datum, Uhrzeit und Ort.",
-    image: 'https://via.placeholder.com/400x200/007acc/ffffff?text=Instagram+Project',
+    image: mywakingview_icon,
     technologies: ['Angular', 'Instagram API'],
     github: 'https://github.com/ColumCross/mywakingview'
   },
@@ -55,7 +57,7 @@ export const projects = [
     title: "PowerShell Prompt",
     description: "The profile I use when opening PS. I adapted it from an existing program for changing Prompts in PS.",
     descde: "Das Profil, das ich verwende, wenn ich PS öffne. Ich habe es von einem bestehenden Programm für die Änderung von Prompts in PS angepasst.",
-    image: 'https://via.placeholder.com/400x200/007acc/ffffff?text=PowerShell',
+    image: pspromt_icon,
     technologies: ['PowerShell'],
     github: 'https://github.com/ColumCross/PowerShellProfile'
   }

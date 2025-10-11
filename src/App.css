@@ -521,3 +521,7 @@ body {
     height: 400px;
   }
 }
+
+#contactLinkDiv a {
+  color: white;
+}

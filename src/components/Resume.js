@@ -1,110 +1,117 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import cvEnglish from '../assets/cv_en.tex';
+import cvGerman from '../assets/cv_de.tex';
+import 'katex/dist/katex.min.css';
+import Latex from 'react-latex';
 
 const Resume = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState('');
+  const [parsedContent, setParsedContent] = useState({});
+
+  // Function to parse LaTeX content and convert to HTML
+  const parseLatexToHtml = (latexText) => {
+    // Extract content between \begin{document} and \end{document}
+    const documentStart = latexText.indexOf('\\begin{document}');
+    const documentEnd = latexText.indexOf('\\end{document}');
+    
+    if (documentStart === -1 || documentEnd === -1) {
+      return latexText; // Return original if document markers not found
+    }
+    
+    let content = latexText.substring(documentStart + 16, documentEnd).trim();
+    
+    // Convert LaTeX commands to HTML
+    content = content
+      // Remove document structure commands
+      .replace(/\\documentclass.*?\{.*?\}/g, '')
+      .replace(/\\usepackage.*?\{.*?\}/g, '')
+      .replace(/\\geometry.*?\{.*?\}/g, '')
+      .replace(/\\definecolor.*?\{.*?\}/g, '')
+      .replace(/\\setlength.*?\{.*?\}/g, '')
+      .replace(/\\setlist.*?\{.*?\}/g, '')
+      .replace(/\\pagestyle.*?\{.*?\}/g, '')
+      .replace(/\\color.*?\{.*?\}/g, '')
+      .replace(/\\columnratio.*?\{.*?\}/g, '')
+      .replace(/\\begin\{paracol\}.*?\{.*?\}/g, '')
+      .replace(/\\end\{paracol\}/g, '')
+      .replace(/\\switchcolumn/g, '')
+      
+      // Convert formatting commands
+      .replace(/\\begin\{center\}/g, '<div style="text-align: center;">')
+      .replace(/\\end\{center\}/g, '</div>')
+      .replace(/\\begin\{tikzpicture\}.*?\\end\{tikzpicture\}/gs, '')
+      .replace(/\\includegraphics.*?\{.*?\}/g, '')
+      .replace(/\\vspace.*?\{.*?\}/g, '<br>')
+      .replace(/\\medskip/g, '<br><br>')
+      .replace(/\\sect\{([^}]+)\}/g, '<h3 style="color: #D23F31; border-bottom: 2px solid #D23F31; padding-bottom: 5px; margin-top: 1.5rem;">$1</h3>')
+      .replace(/\\textbf\{([^}]+)\}/g, '<strong>$1</strong>')
+      .replace(/\\textit\{([^}]+)\}/g, '<em>$1</em>')
+      .replace(/\\href\{([^}]+)\}\{([^}]+)\}/g, '<a href="$1" target="_blank" style="color: #007acc;">$2</a>')
+      .replace(/\\begin\{itemize\}/g, '<ul style="margin-left: 1.5rem;">')
+      .replace(/\\end\{itemize\}/g, '</ul>')
+      .replace(/\\item\s*/g, '<li style="margin-bottom: 0.5rem;">')
+      .replace(/\\\\/g, '<br>')
+      .replace(/\{\\fa([^}]+)\}/g, '[$1]')
+      .replace(/~\\par/g, '<br>')
+      .replace(/\\par/g, '<br>')
+      .replace(/\\hfill/g, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
+    
+    // Clean up list items
+    content = content.replace(/(<li[^>]*>.*?)<br>/g, '$1</li>');
+    
+    // Clean up extra whitespace and line breaks
+    content = content
+      .replace(/\n\s*\n/g, '<br>')
+      .replace(/\s+/g, ' ')
+      .trim();
+    
+    return content;
+  };
+
+  // Load and parse LaTeX files
+  useEffect(() => {
+    const loadAndParseFiles = async () => {
+      try {
+        const [englishResponse, germanResponse] = await Promise.all([
+          fetch(cvEnglish),
+          fetch(cvGerman)
+        ]);
+        
+        const [englishText, germanText] = await Promise.all([
+          englishResponse.text(),
+          germanResponse.text()
+        ]);
+        
+        setParsedContent({
+          english: parseLatexToHtml(englishText),
+          german: parseLatexToHtml(germanText)
+        });
+      } catch (error) {
+        console.error('Error loading LaTeX files:', error);
+      }
+    };
+    
+    loadAndParseFiles();
+  }, []);
 
   const resumeContent = {
     english: {
       title: 'Resume - English',
-      content: `
-        <h2>John Doe</h2>
-        <p><strong>Software Developer</strong></p>
-        <p>Email: john.doe@email.com | Phone: +1 (555) 123-4567</p>
-        
-        <h3>Professional Summary</h3>
-        <p>Experienced software developer with 5+ years of experience in web development, specializing in React, Node.js, and modern JavaScript frameworks. Passionate about creating user-friendly applications and solving complex problems.</p>
-        
-        <h3>Technical Skills</h3>
-        <ul>
-          <li><strong>Frontend:</strong> React, JavaScript (ES6+), HTML5, CSS3, TypeScript</li>
-          <li><strong>Backend:</strong> Node.js, Express.js, Python, Django</li>
-          <li><strong>Databases:</strong> MongoDB, PostgreSQL, MySQL</li>
-          <li><strong>Tools:</strong> Git, Docker, AWS, Firebase</li>
-          <li><strong>Other:</strong> RESTful APIs, GraphQL, Agile/Scrum</li>
-        </ul>
-        
-        <h3>Work Experience</h3>
-        
-        <h4>Senior Frontend Developer - TechCorp Inc.</h4>
-        <p><em>January 2022 - Present</em></p>
-        <ul>
-          <li>Led development of a React-based e-commerce platform serving 100k+ users</li>
-          <li>Implemented responsive design and optimized performance, improving load times by 40%</li>
-          <li>Mentored junior developers and conducted code reviews</li>
-        </ul>
-        
-        <h4>Full Stack Developer - StartupXYZ</h4>
-        <p><em>March 2020 - December 2021</em></p>
-        <ul>
-          <li>Built and maintained multiple web applications using React and Node.js</li>
-          <li>Collaborated with cross-functional teams to deliver features on time</li>
-          <li>Implemented CI/CD pipelines and automated testing</li>
-        </ul>
-        
-        <h3>Education</h3>
-        <h4>Bachelor of Science in Computer Science</h4>
-        <p>University of Technology | Graduated 2019</p>
-        
-        <h3>Certifications</h3>
-        <ul>
-          <li>AWS Certified Developer Associate</li>
-          <li>MongoDB Certified Developer</li>
-        </ul>
-      `
+      content: '../assets/cv_en.tex'
     },
     german: {
       title: 'Lebenslauf - Deutsch',
-      content: `
-        <h2>John Doe</h2>
-        <p><strong>Softwareentwickler</strong></p>
-        <p>E-Mail: john.doe@email.com | Telefon: +1 (555) 123-4567</p>
-        
-        <h3>Berufliche Zusammenfassung</h3>
-        <p>Erfahrener Softwareentwickler mit über 5 Jahren Erfahrung in der Webentwicklung, spezialisiert auf React, Node.js und moderne JavaScript-Frameworks. Leidenschaftlich für die Erstellung benutzerfreundlicher Anwendungen und die Lösung komplexer Probleme.</p>
-        
-        <h3>Technische Fähigkeiten</h3>
-        <ul>
-          <li><strong>Frontend:</strong> React, JavaScript (ES6+), HTML5, CSS3, TypeScript</li>
-          <li><strong>Backend:</strong> Node.js, Express.js, Python, Django</li>
-          <li><strong>Datenbanken:</strong> MongoDB, PostgreSQL, MySQL</li>
-          <li><strong>Tools:</strong> Git, Docker, AWS, Firebase</li>
-          <li><strong>Sonstiges:</strong> RESTful APIs, GraphQL, Agile/Scrum</li>
-        </ul>
-        
-        <h3>Berufserfahrung</h3>
-        
-        <h4>Senior Frontend Entwickler - TechCorp Inc.</h4>
-        <p><em>Januar 2022 - Gegenwart</em></p>
-        <ul>
-          <li>Entwicklung einer React-basierten E-Commerce-Plattform für über 100.000 Nutzer geleitet</li>
-          <li>Responsive Design implementiert und Performance optimiert, Ladezeiten um 40% verbessert</li>
-          <li>Juniorentwickler betreut und Code-Reviews durchgeführt</li>
-        </ul>
-        
-        <h4>Full Stack Entwickler - StartupXYZ</h4>
-        <p><em>März 2020 - Dezember 2021</em></p>
-        <ul>
-          <li>Mehrere Webanwendungen mit React und Node.js entwickelt und gewartet</li>
-          <li>Mit funktionsübergreifenden Teams zusammengearbeitet, um Features pünktlich zu liefern</li>
-          <li>CI/CD-Pipelines und automatisierte Tests implementiert</li>
-        </ul>
-        
-        <h3>Ausbildung</h3>
-        <h4>Bachelor of Science in Informatik</h4>
-        <p>Technische Universität | Abschluss 2019</p>
-        
-        <h3>Zertifizierungen</h3>
-        <ul>
-          <li>AWS Certified Developer Associate</li>
-          <li>MongoDB Certified Developer</li>
-        </ul>
-      `
+      content: '../assets/cv_de.tex'
     }
   };
 
   const openModal = (language) => {
-    setModalContent(resumeContent[language]);
+    const content = {
+      title: resumeContent[language].title,
+      content: parsedContent[language] || 'Loading...'
+    };
+    setModalContent(content);
     setShowModal(true);
   };
 
@@ -145,7 +152,7 @@ const Resume = () => {
                   ${modalContent.content}
                 ` 
               }}
-              style={{ color: '#ffffff', lineHeight: '1.6' }}
+              style={{ color: '#ffffff', lineHeight: '1.6', padding: '1rem' }}
             />
           </div>
         </div>

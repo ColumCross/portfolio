@@ -2,14 +2,37 @@
 
 import React, { useState, useEffect } from 'react';
 import { projects } from './Projects';
-import profileSquare from '../assets/profile_square.jpg';
+import profileSquare from '../assets/ColumHeadshot2_square.png';
 import vrCropped from '../assets/vr_cropped.jpg';
 import resumePDF from '../assets/Colum Cross Resume.pdf';
 import resumedePDF from '../assets/CV_Colum_Cross.pdf';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { faSquareGithub } from '@fortawesome/free-brands-svg-icons'
+
+import cvEnglish from '../assets/cv_en.tex';
+import 'katex/dist/katex.min.css';
+import Latex from 'react-latex';
+import { useNavigate } from 'react-router-dom';
+
 const Home = ({ language }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [latexContent, setLatexContent] = useState('');
+  const [showResumeModal, setShowResumeModal] = useState(false);
+  const [resumeModalContent, setResumeModalContent] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Load the LaTeX file content
+    fetch(cvEnglish)
+      .then(response => response.text())
+      .then(text => setLatexContent(text))
+      .catch(error => console.error('Error loading LaTeX file:', error));
+  }, []);
 
   const openProjectModal = (project) => {
     setSelectedProject(project);
@@ -43,7 +66,7 @@ const Home = ({ language }) => {
       {/* Top Bit */}
       <section id="home" className="section">
       <img 
-                src={language === 'english' ? profileSquare : vrCropped} 
+                src={profileSquare} 
                 alt="Portrait" 
                 className="portrait"
               />
@@ -72,9 +95,11 @@ const Home = ({ language }) => {
             <div className="about-text">
               <p>&nbsp;</p>
               <h2>{language === 'english' ? 'Contact' : 'Kontakt'}</h2>
-              <p><a href="mailto:columcross@gmail.com">columcross@gmail.com</a></p>
-              <p><a href="https://linkedin.com/in/columcross" target="_blank">linkedin.com/in/columcross</a></p>
-              <p><a href="https://github.com/columcross" target="_blank">github.com/columcross</a></p>
+              <div id="contactLinkDiv">
+                <p><FontAwesomeIcon icon={faEnvelope} />&nbsp;<a href="mailto:columcross@gmail.com">columcross@gmail.com</a></p>
+                <p><FontAwesomeIcon icon={faLinkedin} />&nbsp;<a href="https://linkedin.com/in/columcross" target="_blank">linkedin.com/in/columcross</a></p>
+                <p><FontAwesomeIcon icon={faSquareGithub} />&nbsp;<a href="https://github.com/columcross" target="_blank">github.com/columcross</a></p>
+              </div>
             </div>
           </div>
         </div>
@@ -159,32 +184,19 @@ const Home = ({ language }) => {
         </div>
       </section>
 
-      {/* Resume Section */}
+      {/* Resume Section NEW */}
       <section id="resume" className="section">
         <h2 className="section-title">{language === 'english' ? 'Resume' : 'Lebenslauf'}</h2>
-        <div className="resume-container">
-          <iframe
-            src={language === 'english' ? resumePDF : resumedePDF}
-            title="Colum Cross Resume"
-            className="resume-iframe"
-            width="100%"
-            height="600"
-          />
-          <div className="resume-actions">
-            <button 
-              className="btn" 
-              onClick={() => {
-                const link = document.createElement('a');
-                link.href = resumePDF;
-                link.download = 'Colum Cross Resume.pdf';
-                link.click();
-              }}
-            >
-              {language === 'english' ? 'Download Resume' : 'Lebenslauf herunterladen'}
-            </button>
-          </div>
-        </div>
-             </section>
+        <p style={{display: language === 'english' ? 'block' : 'none'}}>I am still building out the react solution to generate and display my resume from a LaTeX file. <a href="https://columcross.github.io/resume.html" style={{color: 'white'}}>Click here to view and download from the old website.</a></p>
+        <p style={{display: language === 'german' ? 'block' : 'none'}}>Ich baue noch die react-Lösung, um meinen Lebenslauf aus einer LaTeX-Datei zu generieren und anzuzeigen. <a href="https://columcross.github.io/resume.html" style={{color: 'white'}}>Klicken Sie hier, um den alten Website anzusehen und herunterzuladen.</a></p>
+
+
+
+
+        {/* Button that takes the user to the resume page */}
+        {/* <button className="btn" onClick={() => navigate('/resume')}>{language === 'english' ? 'View Resume' : 'Resume anzeigen'}</button> */}
+      </section>
+
 
        {/* Project Modal */}
        {showModal && selectedProject && (
