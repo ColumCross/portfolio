@@ -5,8 +5,18 @@ import mathBasedNBack from '../assets/mathbasednbacktesticon.png';
 import permissionGranted from '../assets/permission_granted_icon.png';
 import mywakingview_icon from '../assets/mywakingview_icon.png';
 import pspromt_icon from '../assets/ps_prompt_icon.png';
+import dticket_calc_icon from "../assets/placeholder_logo.png";
 
 export const projects = [
+    {
+        id: 7,
+        title: "Deutschlandticket Calculator",
+        description: "An application that tracks your DB journeys and calculates how much money you saved by having a Deutschlandticket. Built on the first principles of iterative software development, starting with the most fundemental Minimum Viable Product (MVP) as outlined in the Design of Everyday Things.",
+        descde: "Eine Anwendung, die Ihre DB-Fahrten verfolgt und berechnet, wie viel Geld Sie durch ein Deutschlandticket gespart haben. Basierend auf den Grundprinzipien der iterativen Softwareentwicklung, beginnend mit dem grundlegendsten Minimum Viable Product (MVP), wie es im Design of Everyday Things beschrieben ist.",
+        image: dticket_calc_icon,
+        technologies: ['Agile', 'JavaScript'],
+        github: 'https://github.com/ColumCross/d-ticket-calculator'
+    },
   {
     id: 1,
     title: 'Warmer Colder',
