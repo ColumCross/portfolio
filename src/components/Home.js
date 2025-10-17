@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { projects } from './Projects';
 import profileSquare from '../assets/ColumHeadshot2_square.png';
 import vrCropped from '../assets/vr_cropped.jpg';
-import resumePDF from '../assets/Colum Cross Resume.pdf';
-import resumedePDF from '../assets/CV_Colum_Cross.pdf';
+import resumePDF from '../assets/Colum_Cross_CV_EN.pdf';
+import resumedePDF from '../assets/Colum_Cross_CV_DE.pdf';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
@@ -22,6 +22,8 @@ const Home = ({ language }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [latexContent, setLatexContent] = useState('');
+  const [showResumePdfModal, setShowResumePdfModal] = useState(false);
+  const [resumePdfSrc, setResumePdfSrc] = useState(resumePDF);
   const [showResumeModal, setShowResumeModal] = useState(false);
   const [resumeModalContent, setResumeModalContent] = useState('');
   const navigate = useNavigate();
@@ -42,6 +44,16 @@ const Home = ({ language }) => {
   const closeProjectModal = () => {
     setShowModal(false);
     setSelectedProject(null);
+  };
+
+  const openResumePdfModal = () => {
+    const src = language === 'english' ? resumePDF : resumedePDF;
+    setResumePdfSrc(src);
+    setShowResumePdfModal(true);
+  };
+
+  const closeResumePdfModal = () => {
+    setShowResumePdfModal(false);
   };
 
   const aboutContent = {
@@ -187,14 +199,28 @@ const Home = ({ language }) => {
       {/* Resume Section NEW */}
       <section id="resume" className="section">
         <h2 className="section-title">{language === 'english' ? 'Resume' : 'Lebenslauf'}</h2>
-        <p style={{display: language === 'english' ? 'block' : 'none'}}>I am still building out the react solution to generate and display my resume from a LaTeX file. <a href="https://columcross.github.io/resume.html" style={{color: 'white'}}>Click here to view and download from the old website.</a></p>
-        <p style={{display: language === 'german' ? 'block' : 'none'}}>Ich baue noch die react-Lösung, um meinen Lebenslauf aus einer LaTeX-Datei zu generieren und anzuzeigen. <a href="https://columcross.github.io/resume.html" style={{color: 'white'}}>Klicken Sie hier, um den alten Website anzusehen und herunterzuladen.</a></p>
-
-
-
-
-        {/* Button that takes the user to the resume page */}
-        {/* <button className="btn" onClick={() => navigate('/resume')}>{language === 'english' ? 'View Resume' : 'Resume anzeigen'}</button> */}
+        
+        <div className="language-buttons" style={{ justifyContent: 'center', gap: '0.75rem' }}>
+          <button 
+            className="btn" 
+            onClick={openResumePdfModal}
+          >
+            {language === 'english' ? 'View Resume' : 'Lebenslauf ansehen'}
+          </button>
+          <button 
+            className="btn" 
+            onClick={() => {
+              const link = document.createElement('a');
+              link.href = language === 'english' ? resumePDF : resumedePDF;
+              link.download = language === 'english' ? 'Colum Cross Resume.pdf' : 'CV_Colum_Cross.pdf';
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            }}
+          >
+            {language === 'english' ? 'Download Resume' : 'Lebenslauf herunterladen'}
+          </button>
+        </div>
       </section>
 
 
@@ -255,6 +281,26 @@ const Home = ({ language }) => {
            </div>
          </div>
        )}
+
+      {showResumePdfModal && (
+        <div className="modal-overlay" onClick={closeResumePdfModal}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeResumePdfModal}>
+              ×
+            </button>
+            <div className="modal-content">
+              <h2 className="modal-project-title">{language === 'english' ? 'Resume' : 'Lebenslauf'}</h2>
+              <iframe
+                src={resumePdfSrc}
+                title="Resume PDF"
+                className="resume-iframe"
+                width="100%"
+                height="600"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
 
      </div>
