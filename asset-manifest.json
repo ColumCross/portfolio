@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/portfolio/static/css/main.09f26b8f.css",
-    "main.js": "/portfolio/static/js/main.0a120f8a.js",
+    "main.js": "/portfolio/static/js/main.a92538ad.js",
     "static/js/453.a22a4657.chunk.js": "/portfolio/static/js/453.a22a4657.chunk.js",
+    "static/media/Colum_Cross_CV_DE.pdf": "/portfolio/static/media/Colum_Cross_CV_DE.82bf224fee5cdc0162b4.pdf",
     "static/media/ColumHeadshot2_square.png": "/portfolio/static/media/ColumHeadshot2_square.3c55439a81c57b885418.png",
     "static/media/vr_cropped.jpg": "/portfolio/static/media/vr_cropped.5afeb3ba8301355b35a7.jpg",
+    "static/media/Colum_Cross_CV_EN.pdf": "/portfolio/static/media/Colum_Cross_CV_EN.f5ad09bf69408ecc13d4.pdf",
     "static/media/mywakingview_icon.png": "/portfolio/static/media/mywakingview_icon.dc02fbf52660a6ac4295.png",
     "static/media/placeholder_logo.png": "/portfolio/static/media/placeholder_logo.b3e94a2ee8fddf395561.png",
-    "static/media/CV_Colum_Cross.pdf": "/portfolio/static/media/CV_Colum_Cross.1e2577c80a45adfa95a2.pdf",
-    "static/media/Colum Cross Resume.pdf": "/portfolio/static/media/Colum Cross Resume.04d86b7f530e74b47328.pdf",
     "static/media/KaTeX_AMS-Regular.ttf": "/portfolio/static/media/KaTeX_AMS-Regular.f80d9eaff7bad6dad739.ttf",
     "static/media/ps_prompt_icon.png": "/portfolio/static/media/ps_prompt_icon.e9716313c5d4831b681d.png",
     "static/media/KaTeX_Main-Regular.ttf": "/portfolio/static/media/KaTeX_Main-Regular.af7fc7b32dbf2a640c9c.ttf",
@@ -77,11 +77,11 @@
     "static/media/KaTeX_Size3-Regular.woff2": "/portfolio/static/media/KaTeX_Size3-Regular.1ef7adae735724bab211.woff2",
     "index.html": "/portfolio/index.html",
     "main.09f26b8f.css.map": "/portfolio/static/css/main.09f26b8f.css.map",
-    "main.0a120f8a.js.map": "/portfolio/static/js/main.0a120f8a.js.map",
+    "main.a92538ad.js.map": "/portfolio/static/js/main.a92538ad.js.map",
     "453.a22a4657.chunk.js.map": "/portfolio/static/js/453.a22a4657.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.09f26b8f.css",
-    "static/js/main.0a120f8a.js"
+    "static/js/main.a92538ad.js"
   ]
 }
